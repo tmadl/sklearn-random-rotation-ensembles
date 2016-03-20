@@ -1,7 +1,7 @@
 sklearn-compatible Random Rotation Ensembles
 ===============
 
-Scikit-learn compatible implementations of the recent Random Rotation Ensemble idea of [Blaser & Fryzlewicz, 2016, JMLR](http://jmlr.org/papers/volume17/blaser16a/blaser16a.pdf). 
+Scikit-learn compatible implementations of the recent Random Rotation Ensemble idea of [Blaser & Fryzlewicz, 2016](http://jmlr.org/papers/volume17/blaser16a/blaser16a.pdf). 
 
 The authors show that random rotations of the feature space in the individual classifiers within the ensemble can improve ensemble diversity, and thus overall ensemble accuracy; especially for tree-based ensembles.
 
