@@ -3,7 +3,9 @@ sklearn-compatible Random Rotation Ensembles
 
 Scikit-learn compatible implementations of the recent Random Rotation Ensemble idea of [Blaser & Fryzlewicz, 2016](http://jmlr.org/papers/volume17/blaser16a/blaser16a.pdf). 
 
-The authors show that random rotations of the feature space in the individual classifiers within the ensemble can improve ensemble diversity, and thus overall ensemble accuracy; especially for tree-based ensembles.
+The authors show that random rotations of the feature space in the individual classifiers within the ensemble can improve ensemble diversity, and thus overall ensemble accuracy; especially for tree-based ensembles. See example from Figure 1 in the paper (top row: single decision tree, bottom row: forest; left column: traditional random forest; right column: random rotation in each decision tree)
+
+[Fig1 from Blaser & Fryzlewicz, 2016](fig1.png "Fig1 from Blaser & Fryzlewicz, 2016")
 
 Two such tree-based models are implemented here, Random Forests and Extremely Randomized Tree classifiers, and compared below to scikit's standard implementations.
 
