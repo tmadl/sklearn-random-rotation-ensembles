@@ -4,10 +4,10 @@ from rr_forest import RRForestClassifier
 from rr_extra_forest import RRExtraTreesClassifier
 
 estimators = {
-              'RandomForest': RandomForestClassifier(n_estimators=160, n_jobs=-1),
-              'RndRotForest': RRForestClassifier(n_estimators=160, n_jobs=-1),
-              'ExtraTrees': ExtraTreesClassifier(n_estimators=160, n_jobs=-1),
-              'RndRotETrees': RRExtraTreesClassifier(n_estimators=160, n_jobs=-1),
+              'RandomForest': RandomForestClassifier(n_estimators=20),
+              'RndRotForest': RRForestClassifier(n_estimators=20),
+              'ExtraTrees': ExtraTreesClassifier(n_estimators=20),
+              'RndRotETrees': RRExtraTreesClassifier(n_estimators=20),
             }
 
 # optionally, pass a list of UCI dataset identifiers as the datasets parameter, e.g. datasets=['iris', 'diabetes']

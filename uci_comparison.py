@@ -8,22 +8,19 @@ from scipy.stats.stats import mannwhitneyu, ttest_ind
 comparison_datasets = [
         "breast-cancer",
         "datasets-UCI breast-w",
-        "datasets-UCI colic",
-        "datasets-UCI credit-a",
         "datasets-UCI credit-g",
         "uci-20070111 haberman",
         "heart",
         "ionosphere",
         "uci-20070111 labor",
         "liver-disorders",
-        "sonar",
         "uci-20070111 tic-tac-toe",
         "datasets-UCI vote"
     ]
 
 metrics = {
-           'Acc.': accuracy_score, 
-           'F1': f1_score
+           #'Acc.': accuracy_score, 
+           'F1score': f1_score
         }
 
 def shorten(d):
@@ -42,9 +39,9 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
     if type(metrics) != dict:
         raise Exception("Argument metrics needs to be a dict containing 'name': scoring function pairs")
     cols = []
-    for ename in estimators.keys():
+    for e in range(len(estimators)):
         for mname in metrics.keys():
-            cols.append(ename+" "+mname)
+            cols.append(sorted(estimators.keys())[e]+" "+mname)
     
     rows = []
     mean_results = []
@@ -56,7 +53,7 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
         X, y = getdataset(d)
         rows.append(shorten(d)+" (n="+str(len(y))+")")
         for e in range(len(estimators.keys())):
-            est = estimators[estimators.keys()[e]]
+            est = estimators[sorted(estimators.keys())[e]]
             mresults = [[] for i in range(len(metrics))]
             for train_idx, test_idx in KFold(len(y), n_folds=n_cv_folds):
                 est.fit(X[train_idx, :], y[train_idx])
@@ -81,8 +78,8 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
         for j in range(len(estimators)):
             for k in range(len(metrics)):
                 for l in range(len(estimators)):
-                    # has to be greater than +1.28(std1+std2) ... 10% significance level (one-tailed)
-                    if j != l and mean_results[i][j*len(metrics)+k] < mean_results[i][l*len(metrics)+k] + 1.28*(std_results[i][j*len(metrics)+k] + std_results[i][l*len(metrics)+k]):
+                    #if j != l and mean_results[i][j*len(metrics)+k] < mean_results[i][l*len(metrics)+k] + 2*(std_results[i][j*len(metrics)+k] + std_results[i][l*len(metrics)+k]):
+                    if j != l and mean_results[i][j*len(metrics)+k] < mean_results[i][l*len(metrics)+k]:
                         sigstars[j*len(metrics)+k] = ""
         
         for j in range(len(estimators)):

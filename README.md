@@ -7,7 +7,7 @@ The authors show that random rotations of the feature space in the individual cl
 
 Two such tree-based models are implemented here, Random Forests and Extremely Randomized Tree classifiers, and compared below to scikit's standard implementations.
 
-The comparison suite may itself be useful for prototyping and testing new machine learning models (see usage below). 
+The UCI comparison suite may itself be useful for prototyping and testing new machine learning models. It can take any descendant of sklearn BaseEstimator, any list of mldata.org dataset names, and any dict of scoring functions. See usage below.
 
 Usage
 ===============
@@ -54,9 +54,17 @@ estimators = {
 # optionally, pass a dict of scoring functions as the metric parameter, e.g. metrics={'F1-score': f1_score}
 compare_estimators(estimators)
 """
-                                   RF F1             RF Acc.           LinSVC F1         LinSVC Acc.
-====================================================================================================
-        iris (n=150)    0.389 (SE=0.048)   *0.940 (SE=0.009)    0.374 (SE=0.046)    0.913 (SE=0.009)
-    diabetes (n=768)   *0.803 (SE=0.005)   *0.749 (SE=0.006)    0.499 (SE=0.027)    0.527 (SE=0.015)
+                          ExtraTrees F1score  RandomForest F1score  RndRotETrees F1score  RndRotForest F1score
+==============================================================================================================
+  breastcancer (n=683)     *0.961 (SE=0.003)      0.957 (SE=0.004)      0.960 (SE=0.003)      0.957 (SE=0.003)
+       breastw (n=699)      0.947 (SE=0.004)      0.954 (SE=0.005)      0.952 (SE=0.005)     *0.967 (SE=0.002)
+      creditg (n=1000)      0.369 (SE=0.005)      0.360 (SE=0.004)      0.372 (SE=0.005)     *0.384 (SE=0.004)
+      haberman (n=306)      0.292 (SE=0.017)     *0.308 (SE=0.014)      0.225 (SE=0.018)      0.284 (SE=0.019)
+         heart (n=270)     *0.842 (SE=0.007)      0.827 (SE=0.005)      0.796 (SE=0.008)      0.832 (SE=0.004)
+    ionosphere (n=351)      0.724 (SE=0.037)      0.718 (SE=0.037)     *0.744 (SE=0.037)      0.741 (SE=0.037)
+          labor (n=57)      0.238 (SE=0.016)      0.240 (SE=0.020)     *0.271 (SE=0.013)      0.257 (SE=0.018)
+liverdisorders (n=345)      0.650 (SE=0.018)      0.651 (SE=0.017)      0.639 (SE=0.012)     *0.663 (SE=0.017)
+     tictactoe (n=958)      0.030 (SE=0.007)     *0.031 (SE=0.007)      0.030 (SE=0.007)     *0.031 (SE=0.007)
+          vote (n=435)     *0.658 (SE=0.012)     *0.658 (SE=0.012)     *0.658 (SE=0.012)     *0.658 (SE=0.012)
 """
 ```

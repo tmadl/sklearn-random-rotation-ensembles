@@ -85,7 +85,8 @@ class RRForestClassifier(ForestClassifier):
                  random_state=None,
                  verbose=0,
                  warm_start=False,
-                 class_weight=None):
+                 class_weight=None,
+                 scaling=False):
         super(RRForestClassifier, self).__init__(
             base_estimator=RRTreeClassifier(),
             n_estimators=n_estimators,
@@ -108,9 +109,10 @@ class RRForestClassifier(ForestClassifier):
         self.min_weight_fraction_leaf = min_weight_fraction_leaf
         self.max_features = max_features
         self.max_leaf_nodes = max_leaf_nodes
+        self.scaling = scaling
         
-        self.estimator_weights = np.random.random((n_estimators,))
-        #self.estimator_weights = np.ones((n_estimators,))
+        #self.estimator_weights = np.random.random((n_estimators,))
+        self.estimator_weights = np.ones((n_estimators,))
 
     def _fit_scale(self, X):
         self.Q5 = []
@@ -141,9 +143,11 @@ class RRForestClassifier(ForestClassifier):
         return X2
 
     def fit(self, X, y, sample_weight=None):
-        self._fit_scale(X)
-        super(RRForestClassifier, self).fit(self._scale(X), y,
-                                                sample_weight)
+        if self.scaling:
+            self._fit_scale(X)
+            super(RRForestClassifier, self).fit(self._scale(X), y, sample_weight)
+        else:
+            super(RRForestClassifier, self).fit(X, y, sample_weight)
 
     def predict_proba(self, X):
         """Predict class probabilities for X.
@@ -168,7 +172,8 @@ class RRForestClassifier(ForestClassifier):
             classes corresponds to that in the attribute `classes_`.
         """
         # Check data
-        X = self._scale(X)
+        if self.scaling:
+            X = self._scale(X)
         X = self._validate_X_predict(X)
 
         # Assign chunk of trees to jobs
