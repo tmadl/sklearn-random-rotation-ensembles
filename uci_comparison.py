@@ -36,7 +36,7 @@ def print_results_table(results, rows, cols, cellsize=20):
     for rh, row in zip(rows, results):
         print row_format.format(rh, *row)
 
-def compare_estimators(estimators, datasets = comparison_datasets, metrics = metrics, n_cv_folds = 10, decimals = 3, cellsize = 20):
+def compare_estimators(estimators, datasets = comparison_datasets, metrics = metrics, n_cv_folds = 10, decimals = 3, cellsize = 22):
     if type(estimators) != dict:
         raise Exception("First argument needs to be a dict containing 'name': Estimator pairs")
     if type(metrics) != dict:
@@ -54,7 +54,7 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
         mean_result = []
         std_result = []
         X, y = getdataset(d)
-        rows.append(shorten(d)+" (n="+len(y)+")")
+        rows.append(shorten(d)+" (n="+str(len(y))+")")
         for e in range(len(estimators.keys())):
             est = estimators[estimators.keys()[e]]
             mresults = [[] for i in range(len(metrics))]
@@ -81,7 +81,7 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
         for j in range(len(estimators)):
             for k in range(len(metrics)):
                 for l in range(len(estimators)):
-                    # has to be greater than +1.28(std1+std2) ... 10% significance level
+                    # has to be greater than +1.28(std1+std2) ... 10% significance level (one-tailed)
                     if j != l and mean_results[i][j*len(metrics)+k] < mean_results[i][l*len(metrics)+k] + 1.28*(std_results[i][j*len(metrics)+k] + std_results[i][l*len(metrics)+k]):
                         sigstars[j*len(metrics)+k] = ""
         
@@ -92,4 +92,4 @@ def compare_estimators(estimators, datasets = comparison_datasets, metrics = met
 
     print_results_table(results, rows, cols, cellsize)
         
-    return results
+    return mean_results, std_results, results
