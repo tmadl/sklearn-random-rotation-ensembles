@@ -45,6 +45,11 @@ def getdataset(datasetname, onehot_encode_strings=True):
             for i in cat_ft:
                 X[:,i] = tonumeric(X[:,i]) 
             X = OneHotEncoder(categorical_features=cat_ft).fit_transform(X)
+    # if sparse, make dense
+    try:
+        X = X.toarray()
+    except:
+        pass
     # convert y to monotonically increasing ints
     y = tonumeric(target).astype(int)
-    return X,y
+    return np.nan_to_num(X.astype(float)),y

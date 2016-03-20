@@ -130,7 +130,8 @@ class RRForestClassifier(ForestClassifier):
             if len(moreidx)>0:
                 moreval = 1+.01*np.log(1+np.log(1+np.abs(self.Q95[i]-X2[moreidx, i])))
                 
-            X2[:,i] = (X[:,i]-self.Q5[i])/(self.Q95[i]-self.Q5[i])
+            denominator = (self.Q95[i]-self.Q5[i]) if self.Q95[i] != self.Q5[i] else 1 
+            X2[:,i] = (X[:,i]-self.Q5[i])/denominator
             
             if len(lessidx)>0:
                 X2[lessidx, i] = lessval
