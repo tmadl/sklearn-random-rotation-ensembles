@@ -86,7 +86,7 @@ class RRForestClassifier(ForestClassifier):
                  verbose=0,
                  warm_start=False,
                  class_weight=None,
-                 scaling=False):
+                 scaling=True):
         super(RRForestClassifier, self).__init__(
             base_estimator=RRTreeClassifier(),
             n_estimators=n_estimators,
